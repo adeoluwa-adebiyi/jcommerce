@@ -1,0 +1,149 @@
+<html>
+<head>
+    {% include "../user/libs.twig" %}
+    <style>
+        body{
+            background-color: #f7f7f7;
+        }
+
+        .cell{
+            height:150px;
+        }
+        .cell:hover{
+            border: 1px solid #f7f7f7;
+        }
+        .nav-link{
+            color: black !important;
+        }
+        .nav-link:hover{
+            text-decoration: underline;
+        }
+        .shadow{
+            box-shadow: 0px 0px 2px #cccccc;
+        }
+        .category-item{
+            padding:10px;
+            padding-left: 25px;
+            margin:0px;
+        }
+        .category-item:hover{
+            background-color: #f7f7f7;
+        }
+        .category{
+            padding: 0px !important;
+        }
+        .card-header{
+            background-color: #ffffff;
+        }
+        .card{
+            border:none;
+        }
+    </style>
+</head>
+
+<body>
+    {% include "../user/nav.twig" %}
+
+    <div class="container" style="padding-bottom: 40px;">
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-md-3 category shadow" style="height: 300px;overflow-y: auto;background-color: #ffffff;">
+                <a style="display: block;" href="/admin/" class="category-item">Home</a>
+                <a style="display: block;" href="/admin/products" class="category-item">Products</a>
+                <a style="display: block;" href="#" class="category-item">Categories</a>
+                <a style="display: block;" href="#" class="category-item">Revenue</a>
+                <a style="display: block;" href="#" class="category-item">Deals</a>
+                <a style="display: block;" href="#" class="category-item">Payment Gateways</a>
+            </div>
+
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col" style="height: 150px;">
+                        <div class="card shadow">
+                            <div class="card-body" style="padding:10px;height: 150px;display: flex;flex-direction: column;align-items: center;justify-content: center">
+                                <p style="color:crimson;font-weight: bold;">REVENUE</p>
+                                <h3>$ 24000</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" style="height: 150px;">
+                        <div class="card shadow">
+                            <div class="card-body" style="padding:10px;height: 150px;display: flex;flex-direction: column;align-items: center;justify-content: center">
+                                <p style="color:crimson;font-weight: bold;">ORDERS</p>
+                                <h3>1267</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" style="height: 150px;">
+                        <div class="card shadow">
+                            <div class="card-body" style="padding:10px;height: 150px;display: flex;flex-direction: column;align-items: center;justify-content: center">
+                                <p style="color:crimson;font-weight: bold;">DELIVERIES</p>
+                                <h3>1089</h3>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col" style="height: 150px;">
+                        <div class="card shadow">
+                            <div class="card-body" style="height: 150px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body shadow">
+                                <div class="row">
+                                    <div class="col" style="height: 150px;">
+                                        <div class="card">
+                                            <div class="card-body" style="height: 150px;display: flex;flex-direction: column;align-items: center;justify-content: center">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="height: 150px;">
+                                        <div class="card">
+                                            <div class="card-body" style="height: 150px;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="height: 150px;">
+                                        <div class="card">
+                                            <div class="card-body" style="height: 150px;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="height: 150px;">
+                                        <div class="card">
+                                            <div class="card-body" style="height: 150px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col" style="height: 150px;">
+                                        <div class="card">
+                                            <div class="card-body" style="height: 150px;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="height: 150px;">
+                                        <div class="card">
+                                            <div class="card-body" style="height: 150px;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="height: 150px;">
+                                        <div class="card">
+                                            <div class="card-body" style="height: 150px;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="height: 150px;">
+                                        <div class="card">
+                                            <div class="card-body" style="height: 150px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

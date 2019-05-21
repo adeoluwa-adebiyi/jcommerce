@@ -1,0 +1,168 @@
+<html>
+<head>
+    {% include "libs.twig" %}
+    <style>
+        body{
+            background-color: #ffffff;
+        }
+
+        .cell{
+            height:150px;
+        }
+        .cell:hover{
+            border: 1px solid #ccc;
+        }
+        .nav-link{
+            color: black !important;
+        }
+        .nav-link:hover{
+            text-decoration: underline;
+        }
+        .shadow{
+            box-shadow: 0px 0px 2px #cccccc;
+        }
+        .category-item{
+            padding:10px;
+            padding-left: 25px;
+            margin:0px;
+        }
+        .category-item:hover{
+            background-color: #f7f7f7;
+        }
+        .category{
+            padding: 0px !important;
+        }
+        .card-header{
+            background-color: #ffffff;
+        }
+        .card{
+            border:none;
+        }
+        .item-box{
+            display: grid;grid-template-columns: 1fr 1fr 1fr 1fr;grid-auto-rows: auto;
+        }
+        .item{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding:10px;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .naira{
+            text-decoration: line-through;
+        }
+        .item:hover{
+            box-shadow: 0px 0px 2px #ccc;
+        }
+        @media screen and (max-width: 500px){
+            .item-box{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .uppercase{
+            text-transform: uppercase;
+        }
+        .crimson{
+            background-color: #721c24 !important;
+        }
+        tr{
+        }
+        table{
+            border-radius: 4px;
+            box-shadow: 0px 0px 3px #cccccc;
+        }
+    </style>
+</head>
+
+<body>
+{% include "nav.twig" %}
+
+<div class="container" style="padding-bottom: 40px;">
+    <div class="row" style="padding-top: 40px;">
+        <div class="col">
+            <h1 class="display-4">Checkout</h1>
+        </div>
+    </div>
+    <div class="row">
+       <div class="col">
+           <table class="table table-default" style="margin-top: 30px;">
+               {% for product in products %}
+               <tr><td><img width="100" height="100" src="{{ product.image }}"></td><td>{{ product.description }}</td><td><span class="naira">N</span>{{ product.price }}</td></tr>
+               {% endfor %}
+           </table>
+           <form action="#">
+               <script src="https://js.paystack.co/v1/inline.js"></script>
+               <div class="input-group">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">Pay Now</span>
+                   </div>
+                   <div class="input-group-append">
+                       <button class="btn btn-lg btn-success" type="button" name="pay_now" id="pay-now" title="Pay now"  onclick="saveOrderThenPayWithPaystack()"><span class="naira">N</span>&nbsp;{{ checkout.price }}</button>
+                   </div>
+               </div>
+           </form>
+
+           <script>
+               var orderObj = {
+                   email_prepared_for_paystack: '{{ checkout.storePaymentMail }}',
+                   amount: {{ checkout.price }},
+               cartid: "{{ checkout.cartId }}"
+               // other params you want to save
+               };
+
+               function saveOrderThenPayWithPaystack(){
+                   // Send the data to save using post
+                   axios.post( '/order/save', orderObj ).then((data)=>payWithPaystack(data))
+                   // posting.done(function( data ) {
+                       /* check result from the attempt */
+                       // payWithPaystack(null);
+                   // });
+                   // posting.fail(function( data ) { /* and if it failed... */ });
+               }
+
+               function payWithPaystack(data){
+                   var handler = PaystackPop.setup({
+                       // This assumes you already created a constant named
+                       // PAYSTACK_PUBLIC_KEY with your public key from the
+                       // Paystack dashboard. You can as well just paste it
+                       // instead of creating the constant
+                       key: 'pk_test_d91b2e1426c64d56244c9b1f4ad4bd3eb432403b',
+                       email: "{{ checkout.customerMail }}",
+                       amount: {{ checkout.paystackPrice }},
+                       metadata: {
+                           cartid: "{{ checkout.cartId }}",
+                           orderid: "{{ checkout.orderId }}",
+                           custom_fields: [
+                               {
+                                   display_name: "Paid on",
+                                   variable_name: "paid_on",
+                                   value: '{{ checkout.storeName }}'
+                               },
+                               {
+                                   display_name: "Paid via",
+                                   variable_name: "paid_via",
+                                   value: 'Inline Popup'
+                               }
+                           ]
+                       },
+                       callback: function(response){
+                           // post to server to verify transaction before giving value
+                           // var verifying = $.get( '/verify.php?reference=' + response.reference);
+                           // verifying.done(function( data ) { /* give value saved in data */ });
+                       },
+                       onClose: function(){
+                           alert('Click "Pay now" to retry payment.');
+                       }
+                   });
+                   handler.openIframe();
+               }
+           </script>
+       </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

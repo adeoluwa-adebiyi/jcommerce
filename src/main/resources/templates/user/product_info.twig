@@ -1,0 +1,106 @@
+<html>
+<head>
+    {% include "libs.twig" %}
+    <style>
+        body{
+            background-color: #ffffff;
+        }
+
+        .cell{
+            height:150px;
+        }
+        .cell:hover{
+            border: 1px solid #ccc;
+        }
+        .nav-link{
+            color: black !important;
+        }
+        .nav-link:hover{
+            text-decoration: underline;
+        }
+        .shadow{
+            box-shadow: 0px 0px 2px #cccccc;
+        }
+        .category-item{
+            padding:10px;
+            padding-left: 25px;
+            margin:0px;
+        }
+        .category-item:hover{
+            background-color: #f7f7f7;
+        }
+        .category{
+            padding: 0px !important;
+        }
+        .card-header{
+            background-color: #ffffff;
+        }
+        .card{
+            border:none;
+        }
+        .item-box{
+            display: grid;grid-template-columns: 1fr 1fr 1fr 1fr;grid-auto-rows: auto;
+        }
+        .item{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding:10px;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .naira{
+            text-decoration: line-through;
+        }
+        .item:hover{
+            box-shadow: 0px 0px 2px #ccc;
+        }
+        @media screen and (max-width: 500px){
+            .item-box{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .uppercase{
+            text-transform: uppercase;
+        }
+        .crimson{
+            background-color: #721c24 !important;
+        }
+    </style>
+</head>
+
+<body>
+{% include "nav.twig" %}
+
+<div class="container" style="padding-bottom: 40px;">
+    <div class="row">
+        <div class="col">
+            <img src="{{ product.image }}" style="margin: 0 auto;margin-top: 40px; width: 60vh;height: 60vh;">
+        </div>
+
+        <div class="col">
+            <h3 class="" style="margin-top: 80px;position: relative;">{{ product.name }} <span style="font-size: 11px;font-weight: bold;position: absolute;top:10px;right: -60px;">GENERIC</span></h3>
+            <p style="font-size: 10px">By Generic</p>
+            <hr>
+            <p style="font-size: 12px;position:relative;">{{ product.description }}</p>
+
+            <p style="font-size: 12px;font-weight: bold;">{{ product.detail }}</p>
+            {#{% if product.details ==  "" %}#}
+            {#<p>None</p>#}
+            {#{% endif %}#}
+            {#<p style="font-size: 12px;">Unique Folding Design: Rotating 360 Degrees Freedom<br>#}
+                {#Classic Wood with Unique Texture: Decoration, Gift and Night Light.<br>Recyclable Material: Durable Paper, Waterproof and Environmental Protection , 100% Recycling#}
+                {#<br>Magnet Holding Design: Custom Industrial-grade N52 Magnets, Enables the Book can be Shaped as Round and Half Circle<br>#}
+                {#1700mAh Li-ion Battery: Charging Time 3-4 Hours, Battery Duration 6-8 Hours<br>#}
+                {#Size: Medium</p>#}
+            {#<p style="font-size: 12px;">{{ product.details }}</p>#}
+            <p style="font-size: 14px;font-weight: bold;color:crimson;"><span class="naira">N</span>&nbsp;{{ product.price }}</p>
+            <a class="btn btn-lg crimson uppercase form-control" href="/product/addtocart/{{ product.id }}" style="font-size: 14px;color:#fff !important;font-weight: bold;">Add to Cart</a>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

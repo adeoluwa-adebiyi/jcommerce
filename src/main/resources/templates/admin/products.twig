@@ -1,0 +1,171 @@
+<html>
+<head>
+    {% include "../user/libs.twig" %}
+    <style>
+        body{
+            background-color: #f7f7f7;
+        }
+
+        .cell{
+            height:150px;
+        }
+        .cell:hover{
+            border: 1px solid #f7f7f7;
+        }
+        .nav-link{
+            color: black !important;
+        }
+        .nav-link:hover{
+            text-decoration: underline;
+        }
+        .shadow{
+            box-shadow: 0px 0px 2px #cccccc;
+        }
+        .category-item{
+            padding:10px;
+            padding-left: 25px;
+            margin:0px;
+        }
+        .category-item:hover{
+            background-color: #f7f7f7;
+        }
+        .category{
+            padding: 0px !important;
+        }
+        .card-header{
+            background-color: #ffffff;
+        }
+        .card{
+            border:none;
+        }
+    </style>
+</head>
+
+<body>
+{% include "../user/nav.twig" %}
+
+<div class="container" style="padding-bottom: 40px;">
+    <div class="row" style="margin-top: 40px;">
+        <div class="col-md-3 category shadow" style="height: 300px;overflow-y: auto;background-color: #ffffff;">
+            <a style="display: block;" href="/admin/" class="category-item">Home</a>
+            <a style="display: block;" href="/admin/products" class="category-item">Products</a>
+            <a style="display: block;" href="#" class="category-item">Categories</a>
+            <a style="display: block;" href="#" class="category-item">Revenue</a>
+            <a style="display: block;" href="#" class="category-item">Deals</a>
+            <a style="display: block;" href="#" class="category-item">Payment Gateways</a>
+        </div>
+
+        <div class="col-md-9" style="padding-left: 25px;">
+            <div class="row">
+                <div class="col">
+                    <h1 style="margin-bottom: 40px;">Manage Products</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow" style="min-height: 800px;">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <!-Manage Controller->
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="manage-tab" data-toggle="tab" href="#manage" role="tab" aria-controls="manage" aria-selected="true">Manage</a>
+                                </li>
+
+                                <!-Create Controller->
+                                <li class="nav-item">
+                                    <a class="nav-link" id="create-tab" data-toggle="tab" href="#create" role="tab" aria-controls="create" aria-selected="false">Create</a>
+                                </li>
+
+                                <!-Search Controller->
+                                <li class="nav-item">
+                                    <a class="nav-link" id="search-tab" data-toggle="tab" href="#search" role="tab" aria-controls="search" aria-selected="false">Search</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+
+                                <!-Manage Tab->
+                                <div class="tab-pane fade show active" id="manage" role="tabpanel" aria-labelledby="manage-tab">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            {% for product in products %}
+                                            <tr><td><img width="80" height="80" src="{{ product.image }}"></td><td>{{ product.name }}</td><td>$ {{ product.price }}</td>
+                                                <td>{{ product.description }}</td>
+                                                <td><a class="btn btn-outline-primary" href="/admin/products/manage?id={{ product.id }}">Edit</a></td>
+                                                <td><a class="btn btn-outline-danger" href="/admin/products/delete?id={{ product.id }}">Delete</a></td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-Create Tab->
+                                <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="create-tab">
+                                    <form style="padding:20px;" action="/admin/products/create" method="POST" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input name="name" type="text" class="form-control" id="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="price">Price</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input name="price" type="text" class="form-control" id="price">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">Image</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">*.png</span>
+                                                </div>
+                                                <input name="image" type="file" class="form-control" id="image">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="category">Category</label>
+                                            <select id="category" class="form-control" name="category">
+                                                {% for category in categories %}
+                                                <option value="{{ category.name }}">{{ category.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <textarea style="height: 300px;" name="description" class="form-control" id="description"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="details">Full Details</label>
+                                            <textarea style="height: 300px;" name="details" class="form-control" id="details"></textarea>
+                                        </div>
+
+                                        <input type="submit" class="btn btn-success" value="Submit">
+                                    </form>
+                                </div>
+
+                                <!-Search Tab->
+                                <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">
+                                    <form style="padding: 20px;">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Tag</span>
+                                            </div>
+                                            <input type="text" name="tag" class="form-control">
+                                        </div>
+                                        <input class="btn btn-success" type="submit" value="Search">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
